@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdo Rizq | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #131a2a;
+            --bg-card-hover: #1a2338;
+            --accent: #e11d48;
+            --accent-hover: #be123c;
+            --accent-soft: rgba(225, 29, 72, 0.15);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html[lang="en"] body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .lang-btn {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 90px 0 70px;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: #fb7185;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(225, 29, 72, 0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #fb7185, #e11d48);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 0 auto 32px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(225, 29, 72, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 70px 0;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+        }
+
+        /* Filter Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: rgba(225, 29, 72, 0.4);
+        }
+
+        .project-thumb {
+            height: 190px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumb-placeholder {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .thumb-placeholder span {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .project-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(11, 15, 25, 0.85);
+            color: #fb7185;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+        }
+
+        html[lang="en"] .project-tag {
+            right: auto;
+            left: 12px;
+        }
+
+        .project-body {
+            padding: 22px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-body h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .project-body p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .project-link:hover {
+            background: var(--accent);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .skill-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .skill-box h4 {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            color: #fb7185;
+        }
+
+        .skill-box p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contact */
+        .contact-card {
+            background: linear-gradient(135deg, #131a2a, #1e1525);
+            border: 1px solid rgba(225, 29, 72, 0.3);
+            border-radius: 20px;
+            padding: 45px 25px;
+            text-align: center;
+        }
+
+        .contact-card h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            max-width: 550px;
+            margin: 0 auto 28px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-whatsapp {
+            background: #16a34a;
+            color: #fff;
+        }
+
+        .btn-whatsapp:hover {
+            background: #15803d;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 640px) {
+            .nav-links a {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Abdo<span>Rizq</span></a>
+                <div class="nav-links">
+                    <a href="#projects" data-i18n="nav_projects">أعمالي</a>
+                    <a href="#skills" data-i18n="nav_skills">مهاراتي</a>
+                    <a href="#contact" data-i18n="nav_contact">تواصل معي</a>
+                    <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">English</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="badge" data-i18n="hero_badge">متاح لمشاريع العمل الحر • Available for Freelance</div>
+                <h1>
+                    <span data-i18n="hero_hi">أهلاً، أنا</span> <span>Abdo Rizq</span>
+                </h1>
+                <p data-i18n="hero_desc">
+                    مصمم جرافيك ومحتوى إعلاني ومطور أدوات ويب تفاعلية. أساعد الشركات والمصانع على تحسين ظهورها بتصاميم بصرية جذابة، وأبني تطبيقات ويب عملية لحل المشكلات اليومية.
+                </p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn btn-primary" data-i18n="hero_btn_work">تصفح أعمالي</a>
+                    <a href="https://wa.me/201067102550" target="_blank" class="btn btn-outline" data-i18n="hero_btn_chat">تواصل عبر واتساب</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-i18n="proj_title">معرض الأعمال والمشاريع</h2>
+                    <p data-i18n="proj_sub">نماذج مختارة من أعمالي في التصميم الدعائي وتطوير أدوات الويب</p>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="filterProjects('all', this)" data-i18n="tab_all">الكل</button>
+                    <button class="tab-btn" onclick="filterProjects('design', this)" data-i18n="tab_design">التصميم والإعلانات</button>
+                    <button class="tab-btn" onclick="filterProjects('web', this)" data-i18n="tab_web">تطبيقات الويب</button>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- Project 1: Commercial Visuals -->
+                    <div class="project-card" data-category="design">
+                        <div class="project-thumb">
+                            <span class="project-tag" data-i18n="tag_design">تصميم وإعلان</span>
+                            <!-- استبدل السطر التالي بصورة التصميم لاحقاً: <img src="promo.jpg" alt="Commercial Design"> -->
+                            <div class="thumb-placeholder">
+                                <span>🎨</span>
+                                <small>Commercial & Brand Visuals</small>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <h3 data-i18n="p1_title">تصاميم إعلانية للمصانع والشركات</h3>
+                            <p data-i18n="p1_desc">
+                                تصميم حملات بوسترات دعائية وفيديوهات ترويجية لقطاع الصناعة والأغذية (الخضار والفاكهة) بهدف رفع التفاعل والوصول على منصات التواصل الاجتماعي بهوية بصرية عصرية وجذابة.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-pill">Graphic Design</span>
+                                <span class="tech-pill">Promo Video</span>
+                                <span class="tech-pill">Social Media</span>
+                            </div>
+                            <a href="https://wa.me/201067102550?text=مرحباً%20عبدو،%20حابب%20أشوف%20تفاصيل%20أكتر%20عن%20شغل%20التصميم%20الإعلاني" target="_blank" class="project-link" data-i18n="p1_btn">اطلب تصميم مماثل ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Entomology App -->
+                    <div class="project-card" data-category="web">
+                        <div class="project-thumb">
+                            <span class="project-tag" data-i18n="tag_web">تطبيق ويب حي</span>
+                            <div class="thumb-placeholder">
+                                <span>🪲</span>
+                                <small>Interactive Web App</small>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <h3 data-i18n="p2_title">دليل الحشرات الاقتصادية التفاعلي</h3>
+                            <p data-i18n="p2_desc">
+                                تطبيق ويب تفاعلي متكامل لتصنيف الآفات الزراعية مع صور عالية الدقة مدمجة، ونظام نطق صوتي تلقائي للأسماء العلمية، واختبارات مراجعة سريعة تعمل على الهاتف والكمبيوتر.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-pill">HTML / CSS / JS</span>
+                                <span class="tech-pill">Python Automation</span>
+                                <span class="tech-pill">Web Speech API</span>
+                            </div>
+                            <a href="https://abdorizq.github.io/entomology-app/" target="_blank" class="project-link" data-i18n="p2_btn">معاينة التطبيق مباشرة ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Pesticide Tool -->
+                    <div class="project-card" data-category="web">
+                        <div class="project-thumb">
+                            <span class="project-tag" data-i18n="tag_tool">أداة برمجية</span>
+                            <div class="thumb-placeholder">
+                                <span>🧪</span>
+                                <small>Python & Data Tool</small>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <h3 data-i18n="p3_title">منظومة حساب وتوصيات المبيدات</h3>
+                            <p data-i18n="p3_desc">
+                                أداة برمجية بلغة Python وواجهة ويب للبحث في قواعد بيانات المبيدات الزراعية وحساب الجرعات بدقة لربط الآفة بالمبيد المناسب وطريقة المكافحة الفعالة.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-pill">Python</span>
+                                <span class="tech-pill">CSV Data</span>
+                                <span class="tech-pill">Web UI</span>
+                            </div>
+                            <a href="https://github.com/AbdoRizq" target="_blank" class="project-link" data-i18n="p3_btn">تصفح حساب GitHub ↗</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-i18n="skills_title">المهارات والأدوات</h2>
+                    <p data-i18n="skills_sub">المجالات والتقنيات التي أستخدمها في تنفيذ المشاريع</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-box">
+                        <h4 data-i18n="s1_title">التصميم الجرافيكي والإعلاني</h4>
+                        <p data-i18n="s1_desc">تصميم بوسترات السوشيال ميديا، الهويات البصرية، وإنتاج الفيديوهات الترويجية الجذابة.</p>
+                    </div>
+                    <div class="skill-box">
+                        <h4 data-i18n="s2_title">تطوير صفحات وتطبيقات الويب</h4>
+                        <p data-i18n="s2_desc">بناء مواقع تعريفية وتطبيقات ويب تفاعلية سريعة ومتجاوبة باستخدام HTML و CSS و JavaScript.</p>
+                    </div>
+                    <div class="skill-box">
+                        <h4 data-i18n="s3_title">الأتمتة والبرمجة بـ Python</h4>
+                        <p data-i18n="s3_desc">كتابة سكريبتات لمعالجة البيانات، سحب وضغط الصور تلقائياً، وبناء قواعد البيانات.</p>
+                    </div>
+                    <div class="skill-box">
+                        <h4 data-i18n="s4_title">توظيف الذكاء الاصطناعي</h4>
+                        <p data-i18n="s4_desc">دمج أدوات AI الحديثة لتسريع الإنتاج الإبداعي والبرمجي بأعلى جودة ممكنة.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="container">
+                <div class="contact-card">
+                    <h2 data-i18n="contact_title">هل لديك مشروع أو فكرة تريد تنفيذها؟</h2>
+                    <p data-i18n="contact_desc">
+                        سواء كنت تبحث عن تصميمات إعلانية احترافية لشركتك أو مصنعك أو أداة ويب مخصصة، يسعدني تواصلك معي في أي وقت.
+                    </p>
+                    <div class="contact-links">
+                        <a href="https://wa.me/201067102550" target="_blank" class="btn btn-whatsapp" data-i18n="btn_wa">واتساب: 01067102550</a>
+                        <a href="mailto:abdo.havez.gaber.rizq123@gmail.com" class="btn btn-primary" data-i18n="btn_email">إرسال بريد إلكتروني</a>
+                        <a href="https://github.com/AbdoRizq" target="_blank" class="btn btn-outline">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Abdo Rizq — All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            ar: {
+                nav_projects: "أعمالي",
+                nav_skills: "مهاراتي",
+                nav_contact: "تواصل معي",
+                hero_badge: "متاح لمشاريع العمل الحر • Available for Freelance",
+                hero_hi: "أهلاً، أنا",
+                hero_desc: "مصمم جرافيك ومحتوى إعلاني ومطور أدوات ويب تفاعلية. أساعد الشركات والمصانع على تحسين ظهورها بتصاميم بصرية جذابة، وأبني تطبيقات ويب عملية لحل المشكلات اليومية.",
+                hero_btn_work: "تصفح أعمالي",
+                hero_btn_chat: "تواصل عبر واتساب",
+                proj_title: "معرض الأعمال والمشاريع",
+                proj_sub: "نماذج مختارة من أعمالي في التصميم الدعائي وتطوير أدوات الويب",
+                tab_all: "الكل",
+                tab_design: "التصميم والإعلانات",
+                tab_web: "تطبيقات الويب",
+                tag_design: "تصميم وإعلان",
+                tag_web: "تطبيق ويب حي",
+                tag_tool: "أداة برمجية",
+                p1_title: "تصاميم إعلانية للمصانع والشركات",
+                p1_desc: "تصميم حملات بوسترات دعائية وفيديوهات ترويجية لقطاع الصناعة والأغذية (الخضار والفاكهة) بهدف رفع التفاعل والوصول على منصات التواصل الاجتماعي بهوية بصرية عصرية وجذابة.",
+                p1_btn: "اطلب تصميم مماثل ↗",
+                p2_title: "دليل الحشرات الاقتصادية التفاعلي",
+                p2_desc: "تطبيق ويب تفاعلي متكامل لتصنيف الآفات الزراعية مع صور عالية الدقة مدمجة، ونظام نطق صوتي تلقائي للأسماء العلمية، واختبارات مراجعة سريعة تعمل على الهاتف والكمبيوتر.",
+                p2_btn: "معاينة التطبيق مباشرة ↗",
+                p3_title: "منظومة حساب وتوصيات المبيدات",
+                p3_desc: "أداة برمجية بلغة Python وواجهة ويب للبحث في قواعد بيانات المبيدات الزراعية وحساب الجرعات بدقة لربط الآفة بالمبيد المناسب وطريقة المكافحة الفعالة.",
+                p3_btn: "تصفح حساب GitHub ↗",
+                skills_title: "المهارات والأدوات",
+                skills_sub: "المجالات والتقنيات التي أستخدمها في تنفيذ المشاريع",
+                s1_title: "التصميم الجرافيكي والإعلاني",
+                s1_desc: "تصميم بوسترات السوشيال ميديا، الهويات البصرية، وإنتاج الفيديوهات الترويجية الجذابة.",
+                s2_title: "تطوير صفحات وتطبيقات الويب",
+                s2_desc: "بناء مواقع تعريفية وتطبيقات ويب تفاعلية سريعة ومتجاوبة باستخدام HTML و CSS و JavaScript.",
+                s3_title: "الأتمتة والبرمجة بـ Python",
+                s3_desc: "كتابة سكريبتات لمعالجة البيانات، سحب وضغط الصور تلقائياً، وبناء قواعد البيانات.",
+                s4_title: "توظيف الذكاء الاصطناعي",
+                s4_desc: "دمج أدوات AI الحديثة لتسريع الإنتاج الإبداعي والبرمجي بأعلى جودة ممكنة.",
+                contact_title: "هل لديك مشروع أو فكرة تريد تنفيذها؟",
+                contact_desc: "سواء كنت تبحث عن تصميمات إعلانية احترافية لشركتك أو مصنعك أو أداة ويب مخصصة، يسعدني تواصلك معي في أي وقت.",
+                btn_wa: "واتساب: 01067102550",
+                btn_email: "إرسال بريد إلكتروني"
+            },
+            en: {
+                nav_projects: "Projects",
+                nav_skills: "Skills",
+                nav_contact: "Contact",
+                hero_badge: "Available for Freelance Projects",
+                hero_hi: "Hi, I'm",
+                hero_desc: "Graphic & Promotional Designer and Interactive Web Tools Developer. I help companies and factories boost their visual presence with engaging ads and build practical web applications.",
+                hero_btn_work: "View My Work",
+                hero_btn_chat: "Chat on WhatsApp",
+                proj_title: "Featured Projects",
+                proj_sub: "Selected works in promotional visual design and web tools development",
+                tab_all: "All",
+                tab_design: "Design & Ads",
+                tab_web: "Web Apps",
+                tag_design: "Design & Video",
+                tag_web: "Live Web App",
+                tag_tool: "Software Tool",
+                p1_title: "Promotional Designs for Factories & Companies",
+                p1_desc: "Created promotional poster campaigns and commercial video mockups for the industrial and food sectors to boost social media reach with a sleek, modern visual identity.",
+                p1_btn: "Request Similar Design ↗",
+                p2_title: "Interactive Economic Entomology Guide",
+                p2_desc: "A standalone interactive web application classifying agricultural pests with embedded photos, automated scientific name text-to-speech pronunciation, and quick revision quizzes.",
+                p2_btn: "Open Live App ↗",
+                p3_title: "Pesticide Dosage & Recommendation System",
+                p3_desc: "A Python-powered tool and web interface to search agricultural pesticide databases, calculate accurate dosages, and match pests with effective control methods.",
+                p3_btn: "View on GitHub ↗",
+                skills_title: "Skills & Tools",
+                skills_sub: "Core domains and technologies I use to deliver results",
+                s1_title: "Graphic & Promotional Design",
+                s1_desc: "Crafting social media posters, brand visuals, and high-converting promotional videos.",
+                s2_title: "Web Development",
+                s2_desc: "Building fast, responsive landing pages and interactive web tools using HTML, CSS, and JavaScript.",
+                s3_title: "Python Automation",
+                s3_desc: "Writing Python scripts for data processing, automated image compression, and database building.",
+                s4_title: "AI-Assisted Workflows",
+                s4_desc: "Leveraging modern AI tools to accelerate creative design and technical development.",
+                contact_title: "Have a project or idea in mind?",
+                contact_desc: "Whether you need eye-catching promotional designs for your company or factory, or a custom web tool, feel free to reach out anytime.",
+                btn_wa: "WhatsApp: 01067102550",
+                btn_email: "Send an Email"
+            }
+        };
+
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('langToggle').textContent = currentLang === 'ar' ? 'English' : 'عربي';
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+        }
+
+        function filterProjects(category, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
