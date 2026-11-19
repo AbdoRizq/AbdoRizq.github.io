@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdo Rizq | Portfolio</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -239,7 +240,7 @@
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 24px;
         }
 
@@ -260,7 +261,7 @@
         }
 
         .project-thumb {
-            height: 190px;
+            height: 230px;
             background: linear-gradient(135deg, #1e293b, #0f172a);
             display: flex;
             align-items: center;
@@ -277,32 +278,113 @@
         }
 
         .thumb-placeholder {
-            text-align: center;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
         }
 
         .thumb-placeholder span {
-            font-size: 2.5rem;
-            display: block;
-            margin-bottom: 8px;
+            font-size: 3rem;
+        }
+
+        .thumb-placeholder small {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .thumb-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 15, 25, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .project-card:hover .thumb-overlay {
+            background: rgba(11, 15, 25, 0.2);
+        }
+
+        .gallery-indicator {
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.2);
+            pointer-events: none;
         }
 
         .project-tag {
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(11, 15, 25, 0.85);
+            background: rgba(11, 15, 25, 0.88);
             color: #fb7185;
             padding: 4px 12px;
             border-radius: 6px;
             font-size: 0.78rem;
             font-weight: 700;
             border: 1px solid var(--border);
+            z-index: 5;
+            pointer-events: none;
         }
 
         html[lang="en"] .project-tag {
             right: auto;
             left: 12px;
+        }
+
+        /* 3D Viewer Controls */
+        .dim-toggle-btn {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(11, 15, 25, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 700;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .dim-toggle-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .dim-overlay {
+            display: none;
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(11, 15, 25, 0.92);
+            border: 1px solid var(--accent);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: #fff;
+            text-align: right;
+            pointer-events: none;
+            line-height: 1.6;
+            z-index: 10;
+        }
+
+        html[lang="en"] .dim-overlay {
+            text-align: left;
+            left: auto;
+            right: 12px;
         }
 
         .project-body {
@@ -352,13 +434,133 @@
             color: var(--text-primary);
             text-decoration: none;
             border-radius: 8px;
+            font-family: inherit;
             font-weight: 700;
             font-size: 0.9rem;
             transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            outline: none;
         }
 
         .project-link:hover {
             background: var(--accent);
+        }
+
+        /* Lightbox Gallery Modal */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 10, 18, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1.5rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background: var(--accent);
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-img-wrapper {
+            position: relative;
+            width: 100%;
+            max-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-caption {
+            text-align: center;
+            margin-top: 16px;
+            max-width: 600px;
+        }
+
+        .lightbox-caption h4 {
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .lightbox-caption p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        .lightbox-nav:hover {
+            background: var(--accent);
+            border-color: var(--accent);
         }
 
         /* Skills */
@@ -477,41 +679,80 @@
             <div class="container">
                 <div class="section-header">
                     <h2 data-i18n="proj_title">معرض الأعمال والمشاريع</h2>
-                    <p data-i18n="proj_sub">نماذج مختارة من أعمالي في التصميم الدعائي وتطوير أدوات الويب</p>
+                    <p data-i18n="proj_sub">نماذج مختارة من أعمالي في التصميم الدعائي، التغليف ثلاثي الأبعاد، وتطوير أدوات الويب</p>
                 </div>
 
                 <div class="tabs">
                     <button class="tab-btn active" onclick="filterProjects('all', this)" data-i18n="tab_all">الكل</button>
-                    <button class="tab-btn" onclick="filterProjects('design', this)" data-i18n="tab_design">التصميم والإعلانات</button>
+                    <button class="tab-btn" onclick="filterProjects('design', this)" data-i18n="tab_design">التصميم والتغليف 3D</button>
                     <button class="tab-btn" onclick="filterProjects('web', this)" data-i18n="tab_web">تطبيقات الويب</button>
                 </div>
 
                 <div class="projects-grid">
-                    <!-- Project 1: Commercial Visuals -->
+                    <!-- Project 1: Interactive 3D Food Pouch -->
                     <div class="project-card" data-category="design">
+                        <div class="project-thumb" style="height: 300px; background: radial-gradient(circle, #1e293b 0%, #0b0f19 100%); position: relative; overflow: hidden;">
+                            <span class="project-tag" data-i18n="tag_3d">مجسم 3D تفاعلي</span>
+                            <model-viewer
+                                src="pouch.glb"
+                                alt="3D Pouch"
+                                auto-rotate
+                                camera-controls
+                                shadow-intensity="1.5"
+                                touch-action="pan-y"
+                                style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"
+                                id="pouchViewer">
+
+                                <button class="dim-toggle-btn" onclick="toggleDimensions()" data-i18n="btn_dims">
+                                    📏 الأبعاد (Dimensions)
+                                </button>
+
+                                <div id="dimOverlay" class="dim-overlay" data-i18n="dims_info">
+                                    <strong>أبعاد العبوة (1 كجم):</strong><br>
+                                    • الارتفاع: 24 cm<br>
+                                    • العرض: 17 cm<br>
+                                    • العمق: 6 cm
+                                </div>
+                            </model-viewer>
+                        </div>
+                        <div class="project-body">
+                            <h3 data-i18n="p3d_title">تصميم وتجسيم أكياس التغليف (3D Pouch)</h3>
+                            <p data-i18n="p3d_desc">
+                                تصميم الوجهين الأمامي والخلفي لأكياس التعبئة والتغليف الغذائية مع معاينة مجسمة ثلاثية الأبعاد تتيح للعميل تدوير المنتج 360° ومعاينة الأبعاد وبيانات التغذية والباركود بدقة.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-pill">3D GLB Model</span>
+                                <span class="tech-pill">Packaging Design</span>
+                                <span class="tech-pill">Interactive 360°</span>
+                            </div>
+                            <a href="https://wa.me/201067102550?text=مرحباً%20عبدو،%20حابب%20أستفسر%20عن%20تصميم%20تغليف%20ومجسمات%203D%20لمنتجاتي" target="_blank" class="project-link" data-i18n="p3d_btn">اطلب تصميم عبوة لمنتجك ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Gallery Lightbox Card -->
+                    <div class="project-card" data-category="design" onclick="openLightbox(0)">
                         <div class="project-thumb">
-                            <span class="project-tag" data-i18n="tag_design">تصميم وإعلان</span>
-                            <!-- استبدل السطر التالي بصورة التصميم لاحقاً: <img src="promo.jpg" alt="Commercial Design"> -->
-                            <div class="thumb-placeholder">
-                                <span>🎨</span>
-                                <small>Commercial & Brand Visuals</small>
+                            <span class="project-tag" data-i18n="tag_design">معرض التصاميم</span>
+                            <img src="pouch_front.jpg" alt="Commercial Design" onerror="this.style.display='none';">
+                            <div class="thumb-overlay">
+                                <span class="gallery-indicator" data-i18n="btn_view_gallery">تصفح المعرض (2 تصاميم) 👁️</span>
                             </div>
                         </div>
                         <div class="project-body">
                             <h3 data-i18n="p1_title">تصاميم إعلانية للمصانع والشركات</h3>
                             <p data-i18n="p1_desc">
-                                تصميم حملات بوسترات دعائية وفيديوهات ترويجية لقطاع الصناعة والأغذية (الخضار والفاكهة) بهدف رفع التفاعل والوصول على منصات التواصل الاجتماعي بهوية بصرية عصرية وجذابة.
+                                تصميم حملات بوسترات دعائية وتصاميم 3D CGI لمنتجات قطاع الصناعة والأغذية (الخضار، الفاكهة والعصائر) بهدف رفع التفاعل والوصول بهوية بصرية عصرية وجذابة.
                             </p>
                             <div class="project-tech">
                                 <span class="tech-pill">Graphic Design</span>
-                                <span class="tech-pill">Promo Video</span>
+                                <span class="tech-pill">3D CGI Render</span>
                                 <span class="tech-pill">Social Media</span>
                             </div>
-                            <a href="https://wa.me/201067102550?text=مرحباً%20عبدو،%20حابب%20أشوف%20تفاصيل%20أكتر%20عن%20شغل%20التصميم%20الإعلاني" target="_blank" class="project-link" data-i18n="p1_btn">اطلب تصميم مماثل ↗</a>
+                            <button class="project-link" data-i18n="p1_btn">اضغط لتصفح المعرض ↗</button>
                         </div>
                     </div>
 
-                    <!-- Project 2: Entomology App -->
+                    <!-- Project 3: Entomology App -->
                     <div class="project-card" data-category="web">
                         <div class="project-thumb">
                             <span class="project-tag" data-i18n="tag_web">تطبيق ويب حي</span>
@@ -534,7 +775,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 3: Pesticide Tool -->
+                    <!-- Project 4: Pesticide Tool -->
                     <div class="project-card" data-category="web">
                         <div class="project-thumb">
                             <span class="project-tag" data-i18n="tag_tool">أداة برمجية</span>
@@ -560,6 +801,22 @@
             </div>
         </section>
 
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox" onclick="closeLightboxOverlay(event)">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <button class="lightbox-nav lightbox-prev" onclick="prevImg()">&lsaquo;</button>
+            <div class="lightbox-content">
+                <div class="lightbox-img-wrapper">
+                    <img id="lightboxImg" class="lightbox-img" src="" alt="Gallery Image">
+                </div>
+                <div class="lightbox-caption">
+                    <h4 id="lightboxTitle"></h4>
+                    <p id="lightboxDesc"></p>
+                </div>
+            </div>
+            <button class="lightbox-nav lightbox-next" onclick="nextImg()">&rsaquo;</button>
+        </div>
+
         <!-- Skills -->
         <section id="skills">
             <div class="container">
@@ -569,8 +826,8 @@
                 </div>
                 <div class="skills-grid">
                     <div class="skill-box">
-                        <h4 data-i18n="s1_title">التصميم الجرافيكي والإعلاني</h4>
-                        <p data-i18n="s1_desc">تصميم بوسترات السوشيال ميديا، الهويات البصرية، وإنتاج الفيديوهات الترويجية الجذابة.</p>
+                        <h4 data-i18n="s1_title">التصميم الجرافيكي والتغليف 3D</h4>
+                        <p data-i18n="s1_desc">تصميم بوسترات السوشيال ميديا، عبوات المنتجات، وعرض المجسمات التفاعلية 360 درجة.</p>
                     </div>
                     <div class="skill-box">
                         <h4 data-i18n="s2_title">تطوير صفحات وتطبيقات الويب</h4>
@@ -578,7 +835,7 @@
                     </div>
                     <div class="skill-box">
                         <h4 data-i18n="s3_title">الأتمتة والبرمجة بـ Python</h4>
-                        <p data-i18n="s3_desc">كتابة سكريبتات لمعالجة البيانات، سحب وضغط الصور تلقائياً، وبناء قواعد البيانات.</p>
+                        <p data-i18n="s3_desc">كتابة سكريبتات لمعالجة البيانات، توليد مجسمات 3D، وسحب وضغط الصور تلقائياً.</p>
                     </div>
                     <div class="skill-box">
                         <h4 data-i18n="s4_title">توظيف الذكاء الاصطناعي</h4>
@@ -594,7 +851,7 @@
                 <div class="contact-card">
                     <h2 data-i18n="contact_title">هل لديك مشروع أو فكرة تريد تنفيذها؟</h2>
                     <p data-i18n="contact_desc">
-                        سواء كنت تبحث عن تصميمات إعلانية احترافية لشركتك أو مصنعك أو أداة ويب مخصصة، يسعدني تواصلك معي في أي وقت.
+                        سواء كنت تبحث عن تصميمات إعلانية وتغليف 3D لشركتك أو مصنعك، أو أداة ويب مخصصة، يسعدني تواصلك معي في أي وقت.
                     </p>
                     <div class="contact-links">
                         <a href="https://wa.me/201067102550" target="_blank" class="btn btn-whatsapp" data-i18n="btn_wa">واتساب: 01067102550</a>
@@ -613,6 +870,61 @@
     </footer>
 
     <script>
+        const gallery = [
+            {
+                img: "pouch_front.jpg",
+                titleAr: "الوجه الأمامي لتصميم كيس الفراولة المجمدة",
+                descAr: "تصميم واجهة كيس التغليف بهوية بصرية عصرية تعكس الطزاجة والطبيعة مع النافذة الشفافة وتوضيح الوزن الصافي.",
+                titleEn: "Frozen Strawberries Pouch — Front Design",
+                descEn: "Modern front packaging design highlighting freshness and natural quality with a clear window and net weight."
+            },
+            {
+                img: "pouch_back.jpg",
+                titleAr: "الوجه الخلفي لتصميم كيس الفراولة المجمدة",
+                descAr: "تصميم الظهر متضمناً القيمة الغذائية، طريقة التخزين، الشهادات، بلد المنشأ مصر، الباركود وبيانات التواصل.",
+                titleEn: "Frozen Strawberries Pouch — Back Design",
+                descEn: "Back packaging layout featuring nutrition facts, storage instructions, certifications, origin, barcode, and contact info."
+            }
+        ];
+
+        let currentImgIdx = 0;
+
+        function openLightbox(idx) {
+            currentImgIdx = idx;
+            updateLightboxContent();
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function closeLightboxOverlay(e) {
+            if (e.target.id === 'lightbox') closeLightbox();
+        }
+
+        function prevImg() {
+            currentImgIdx = (currentImgIdx - 1 + gallery.length) % gallery.length;
+            updateLightboxContent();
+        }
+
+        function nextImg() {
+            currentImgIdx = (currentImgIdx + 1) % gallery.length;
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            const item = gallery[currentImgIdx];
+            document.getElementById('lightboxImg').src = item.img;
+            document.getElementById('lightboxTitle').textContent = currentLang === 'ar' ? item.titleAr : item.titleEn;
+            document.getElementById('lightboxDesc').textContent = currentLang === 'ar' ? item.descAr : item.descEn;
+        }
+
+        function toggleDimensions() {
+            const overlay = document.getElementById('dimOverlay');
+            overlay.style.display = overlay.style.display === 'none' || overlay.style.display === '' ? 'block' : 'none';
+        }
+
         const translations = {
             ar: {
                 nav_projects: "أعمالي",
@@ -624,16 +936,23 @@
                 hero_btn_work: "تصفح أعمالي",
                 hero_btn_chat: "تواصل عبر واتساب",
                 proj_title: "معرض الأعمال والمشاريع",
-                proj_sub: "نماذج مختارة من أعمالي في التصميم الدعائي وتطوير أدوات الويب",
+                proj_sub: "نماذج مختارة من أعمالي في التصميم الدعائي، التغليف ثلاثي الأبعاد، وتطوير أدوات الويب",
                 tab_all: "الكل",
-                tab_design: "التصميم والإعلانات",
+                tab_design: "التصميم والتغليف 3D",
                 tab_web: "تطبيقات الويب",
-                tag_design: "تصميم وإعلان",
+                tag_3d: "مجسم 3D تفاعلي",
+                btn_dims: "📏 الأبعاد (Dimensions)",
+                dims_info: "<strong>أبعاد العبوة (1 كجم):</strong><br>• الارتفاع: 24 cm<br>• العرض: 17 cm<br>• العمق: 6 cm",
+                p3d_title: "تصميم وتجسيم أكياس التغليف (3D Pouch)",
+                p3d_desc: "تصميم الوجهين الأمامي والخلفي لأكياس التعبئة والتغليف الغذائية مع معاينة مجسمة ثلاثية الأبعاد تتيح للعميل تدوير المنتج 360° ومعاينة الأبعاد وبيانات التغذية والباركود بدقة.",
+                p3d_btn: "اطلب تصميم عبوة لمنتجك ↗",
+                tag_design: "معرض التصاميم",
+                btn_view_gallery: "تصفح المعرض (2 تصاميم) 👁️",
                 tag_web: "تطبيق ويب حي",
                 tag_tool: "أداة برمجية",
                 p1_title: "تصاميم إعلانية للمصانع والشركات",
-                p1_desc: "تصميم حملات بوسترات دعائية وفيديوهات ترويجية لقطاع الصناعة والأغذية (الخضار والفاكهة) بهدف رفع التفاعل والوصول على منصات التواصل الاجتماعي بهوية بصرية عصرية وجذابة.",
-                p1_btn: "اطلب تصميم مماثل ↗",
+                p1_desc: "تصميم حملات بوسترات دعائية وتصاميم 3D CGI لمنتجات قطاع الصناعة والأغذية (الخضار، الفاكهة والعصائر) بهدف رفع التفاعل والوصول بهوية بصرية عصرية وجذابة.",
+                p1_btn: "اضغط لتصفح المعرض ↗",
                 p2_title: "دليل الحشرات الاقتصادية التفاعلي",
                 p2_desc: "تطبيق ويب تفاعلي متكامل لتصنيف الآفات الزراعية مع صور عالية الدقة مدمجة، ونظام نطق صوتي تلقائي للأسماء العلمية، واختبارات مراجعة سريعة تعمل على الهاتف والكمبيوتر.",
                 p2_btn: "معاينة التطبيق مباشرة ↗",
@@ -642,16 +961,16 @@
                 p3_btn: "تصفح حساب GitHub ↗",
                 skills_title: "المهارات والأدوات",
                 skills_sub: "المجالات والتقنيات التي أستخدمها في تنفيذ المشاريع",
-                s1_title: "التصميم الجرافيكي والإعلاني",
-                s1_desc: "تصميم بوسترات السوشيال ميديا، الهويات البصرية، وإنتاج الفيديوهات الترويجية الجذابة.",
+                s1_title: "التصميم الجرافيكي والتغليف 3D",
+                s1_desc: "تصميم بوسترات السوشيال ميديا، عبوات المنتجات، وعرض المجسمات التفاعلية 360 درجة.",
                 s2_title: "تطوير صفحات وتطبيقات الويب",
                 s2_desc: "بناء مواقع تعريفية وتطبيقات ويب تفاعلية سريعة ومتجاوبة باستخدام HTML و CSS و JavaScript.",
                 s3_title: "الأتمتة والبرمجة بـ Python",
-                s3_desc: "كتابة سكريبتات لمعالجة البيانات، سحب وضغط الصور تلقائياً، وبناء قواعد البيانات.",
+                s3_desc: "كتابة سكريبتات لمعالجة البيانات، توليد مجسمات 3D، وسحب وضغط الصور تلقائياً.",
                 s4_title: "توظيف الذكاء الاصطناعي",
                 s4_desc: "دمج أدوات AI الحديثة لتسريع الإنتاج الإبداعي والبرمجي بأعلى جودة ممكنة.",
                 contact_title: "هل لديك مشروع أو فكرة تريد تنفيذها؟",
-                contact_desc: "سواء كنت تبحث عن تصميمات إعلانية احترافية لشركتك أو مصنعك أو أداة ويب مخصصة، يسعدني تواصلك معي في أي وقت.",
+                contact_desc: "سواء كنت تبحث عن تصميمات إعلانية وتغليف 3D لشركتك أو مصنعك، أو أداة ويب مخصصة، يسعدني تواصلك معي في أي وقت.",
                 btn_wa: "واتساب: 01067102550",
                 btn_email: "إرسال بريد إلكتروني"
             },
@@ -665,16 +984,23 @@
                 hero_btn_work: "View My Work",
                 hero_btn_chat: "Chat on WhatsApp",
                 proj_title: "Featured Projects",
-                proj_sub: "Selected works in promotional visual design and web tools development",
+                proj_sub: "Selected works in promotional design, interactive 3D packaging, and web tools development",
                 tab_all: "All",
-                tab_design: "Design & Ads",
+                tab_design: "Design & 3D Packaging",
                 tab_web: "Web Apps",
-                tag_design: "Design & Video",
+                tag_3d: "Interactive 3D Model",
+                btn_dims: "📏 Dimensions",
+                dims_info: "<strong>Pouch Dimensions (1 kg):</strong><br>• Height: 24 cm<br>• Width: 17 cm<br>• Depth: 6 cm",
+                p3d_title: "3D Food Packaging Pouch Design",
+                p3d_desc: "Full front and back packaging design for food pouches with an interactive 3D model viewer allowing clients to rotate 360° and inspect dimensions, nutrition facts, and barcodes.",
+                p3d_btn: "Request Custom Packaging ↗",
+                tag_design: "Gallery",
+                btn_view_gallery: "View Gallery (2 Designs) 👁️",
                 tag_web: "Live Web App",
                 tag_tool: "Software Tool",
                 p1_title: "Promotional Designs for Factories & Companies",
-                p1_desc: "Created promotional poster campaigns and commercial video mockups for the industrial and food sectors to boost social media reach with a sleek, modern visual identity.",
-                p1_btn: "Request Similar Design ↗",
+                p1_desc: "Created promotional poster campaigns and 3D CGI visuals for the industrial and food sectors (produce and fresh juices) to boost social media reach with modern visual identities.",
+                p1_btn: "Open Image Gallery ↗",
                 p2_title: "Interactive Economic Entomology Guide",
                 p2_desc: "A standalone interactive web application classifying agricultural pests with embedded photos, automated scientific name text-to-speech pronunciation, and quick revision quizzes.",
                 p2_btn: "Open Live App ↗",
@@ -683,16 +1009,16 @@
                 p3_btn: "View on GitHub ↗",
                 skills_title: "Skills & Tools",
                 skills_sub: "Core domains and technologies I use to deliver results",
-                s1_title: "Graphic & Promotional Design",
-                s1_desc: "Crafting social media posters, brand visuals, and high-converting promotional videos.",
+                s1_title: "Graphic Design & 3D Packaging",
+                s1_desc: "Crafting social media posters, product packaging, and interactive 360° 3D product showcases.",
                 s2_title: "Web Development",
                 s2_desc: "Building fast, responsive landing pages and interactive web tools using HTML, CSS, and JavaScript.",
                 s3_title: "Python Automation",
-                s3_desc: "Writing Python scripts for data processing, automated image compression, and database building.",
+                s3_desc: "Writing Python scripts for data processing, 3D mesh generation, and automated image compression.",
                 s4_title: "AI-Assisted Workflows",
                 s4_desc: "Leveraging modern AI tools to accelerate creative design and technical development.",
                 contact_title: "Have a project or idea in mind?",
-                contact_desc: "Whether you need eye-catching promotional designs for your company or factory, or a custom web tool, feel free to reach out anytime.",
+                contact_desc: "Whether you need eye-catching promotional designs and 3D packaging for your company or factory, or a custom web tool, feel free to reach out anytime.",
                 btn_wa: "WhatsApp: 01067102550",
                 btn_email: "Send an Email"
             }
@@ -709,9 +1035,17 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang][key]) {
-                    el.textContent = translations[currentLang][key];
+                    if (key === 'dims_info') {
+                        el.innerHTML = translations[currentLang][key];
+                    } else {
+                        el.textContent = translations[currentLang][key];
+                    }
                 }
             });
+
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                updateLightboxContent();
+            }
         }
 
         function filterProjects(category, btn) {
